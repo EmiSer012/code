@@ -10,10 +10,10 @@ BLACK = (0, 0, 0)
 GREY = (150, 150, 150)
 RED = (255, 0, 0)
 
-S_PIXEL = 10
+S_PIXEL = 15
 MARGIN = 1
 
-W_SCREEN = 70
+W_SCREEN = 90
 H_SCREEN = 1*CHAR_HEIGHT
 
 screen = pygame.display.set_mode((W_SCREEN * S_PIXEL, H_SCREEN * S_PIXEL))
@@ -27,26 +27,26 @@ for h in range(CHAR_HEIGHT):
         l.append(c)
 
 while True:
-    #for a in range(W_SCREEN+len(message[0])):
 
-    screen.fill(GREY)
+    for a in range(W_SCREEN+len(l)//CHAR_WIDTH):
 
-    for i,q in enumerate(l):
-        if q == 0:
-            color = GREY
-        elif q == 1:
-            color = RED
-        print(q, i%7, i//9)
-        pygame.draw.rect(screen, color, pygame.Rect(i%CHAR_WIDTH*S_PIXEL, i//CHAR_WIDTH*S_PIXEL, S_PIXEL, S_PIXEL))
+        screen.fill(GREY)
 
-    for i in range(H_SCREEN):
-        for j in range(W_SCREEN):
-            pygame.draw.rect(screen, BLACK, pygame.Rect(j*S_PIXEL, i*S_PIXEL, S_PIXEL, S_PIXEL), MARGIN)
+        for i,q in enumerate(l):
+            if q == 0:
+                color = GREY
+            elif q == 1:
+                color = RED
+            pygame.draw.rect(screen, color, pygame.Rect((i%CHAR_WIDTH+a)*S_PIXEL, i//CHAR_WIDTH*S_PIXEL, S_PIXEL, S_PIXEL))
+
+        for i in range(H_SCREEN):
+            for j in range(W_SCREEN):
+                pygame.draw.rect(screen, BLACK, pygame.Rect(j*S_PIXEL, i*S_PIXEL, S_PIXEL+1, S_PIXEL+1), width=1)
             
-    pygame.display.update()
+        pygame.display.update()
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
 
-    pygame.time.delay(200)
+        pygame.time.delay(200)
