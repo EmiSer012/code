@@ -4,11 +4,11 @@ import pygame
 pygame.init
 
 #define variables, constants & list
-message = "titou@seriot.ch"
+message = "Hello World"
 CHAR_WIDTH = 7
 CHAR_HEIGHT = 9
 GRID = (50, 50, 50)
-BACKROUND = (150, 150, 150)
+BACKGROUND = (150, 150, 150)
 COLORED = (250, 0, 0)
 MIDCOLOR = (255, 255, 0)
 S_PIXEL = 15
@@ -30,7 +30,7 @@ for x in range(len(message)):
             l.append(c)
 
 #backround
-screen.fill(BACKROUND)
+screen.fill(BACKGROUND)
 
 #main loop
 while True:
@@ -43,7 +43,7 @@ while True:
 
             #color
             if q == 0:
-                color = BACKROUND
+                color = BACKGROUND
             elif q == 1:
                 color = COLORED
             else:
