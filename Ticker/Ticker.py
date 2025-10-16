@@ -4,13 +4,13 @@ import pygame
 pygame.init
 
 #define variables, constants & list
-message = "Hello World"
+message = "titou@seriot.ch"
 CHAR_WIDTH = 7
 CHAR_HEIGHT = 9
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-GREY = (150, 150, 150)
-RED = (255, 0, 0)
+GRID = (50, 50, 50)
+BACKROUND = (150, 150, 150)
+COLORED = (250, 0, 0)
+MIDCOLOR = (255, 255, 0)
 S_PIXEL = 15
 MARGIN = 1
 W_SCREEN = 90
@@ -23,11 +23,14 @@ l = []
 for x in range(len(message)):
     for h in range(CHAR_HEIGHT):
         for w in range(CHAR_WIDTH):
-            c = (char.getpixel((w+((ord(message[x])-32)%18)*CHAR_WIDTH, h+((ord(message[x])-32)//18)*CHAR_HEIGHT))[0])//255
+            if ord(message[x]) in range(32,127):
+                c = (char.getpixel((w+((ord(message[x])-32)%18)*CHAR_WIDTH, h+((ord(message[x])-32)//18)*CHAR_HEIGHT))[0])//255
+            else:
+                c = (char.getpixel((w+((63-32)%18)*CHAR_WIDTH, h+((63-32)//18)*CHAR_HEIGHT))[0])//255
             l.append(c)
 
 #backround
-screen.fill(GREY)
+screen.fill(BACKROUND)
 
 #main loop
 while True:
@@ -38,11 +41,13 @@ while True:
         #draw the message
         for p,q in enumerate(l):
 
-            #grey or red
+            #color
             if q == 0:
-                color = GREY
+                color = BACKROUND
             elif q == 1:
-                color = RED
+                color = COLORED
+            else:
+                color = MIDCOLOR
 
             #put the lettre to form the message
             pygame.draw.rect(screen, color, pygame.Rect((p//(CHAR_WIDTH*CHAR_HEIGHT)*CHAR_WIDTH+p%CHAR_WIDTH+a-len(message)*CHAR_WIDTH)*S_PIXEL, (p%(CHAR_WIDTH*CHAR_HEIGHT)//CHAR_WIDTH)*S_PIXEL, S_PIXEL, S_PIXEL))
@@ -50,7 +55,7 @@ while True:
         #draw the grid
         for i in range(H_SCREEN):
             for j in range(W_SCREEN):
-                pygame.draw.rect(screen, BLACK, pygame.Rect(j*S_PIXEL, i*S_PIXEL, S_PIXEL+1, S_PIXEL+1), width=1)
+                pygame.draw.rect(screen, GRID, pygame.Rect(j*S_PIXEL, i*S_PIXEL, S_PIXEL+1, S_PIXEL+1), width=1)
         
         #update the screen
         pygame.display.update()
